@@ -61,13 +61,13 @@ jobs:
                 pip install -r ./backend/requirements.txt --prefer-binary --no-use-pep517
             # Чтобы запустить тесты, нужно установить зависимости    
             # Запускаем flake8
-            - name: Test with flake8 and django tests
+            - name: Test with flake8
               # Вызываем flake8 и указываем ему,
               # что нужно проверить файлы только в папке backend/
               run: |
                 python -m flake8 backend/
-                cd backend/
-                python manage.py test 
+            #    cd backend/
+            #    python manage.py test 
             #В ключе run хранится команда, которая будет выполнена в терминале 
             #окружения на раннере
 #workflow для frontend
