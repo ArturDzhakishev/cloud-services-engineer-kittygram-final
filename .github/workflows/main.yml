@@ -42,13 +42,17 @@ jobs:
               uses: actions/setup-python@v4
               with:
                 python-version: 3.12 # В action setup-python@v4 передаём параметр — версию Python
+            - name: Install system dependencies for building packages
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y build-essential libpq-dev python3-dev 
             # Обновляем pip, устанавливаем flake8 (инструмент для проверки кода PEP 8) и flake8-isort (расширение проверяет правильность сортировки импортов в коде), 
             # устанавливаем зависимости проекта
             - name: Install dependencies
               run: |
                 python -m pip install --upgrade pip
                 pip install flake8==6.0.0 flake8-isort==6.0.0
-                pip install -r ./backend/requirements.txt 
+                pip install -r ./backend/requirements.txt --prefer-binary
             # Чтобы запустить тесты, нужно установить зависимости    
             # Запускаем flake8
             - name: Test with flake8 and django tests
