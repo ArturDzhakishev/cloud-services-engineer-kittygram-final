@@ -203,5 +203,5 @@ jobs:
           - name: Run autotests
             run: |
               cd backend/
-              python manage.py test
+              python manage.py test tests
         
