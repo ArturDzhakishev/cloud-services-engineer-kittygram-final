@@ -202,5 +202,6 @@ jobs:
           - name: Run autotests
             run: |
               cd backend/
-              python manage.py test
+              sudo apt install python-pytest
+              pytest
         
