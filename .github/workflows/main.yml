@@ -181,4 +181,5 @@ jobs:
               key: ${{ secrets.SSH_KEY }}
               script: |
                 cd /home/ubuntu/kittygram/
+                pip install pytest
                 pytest tests/
