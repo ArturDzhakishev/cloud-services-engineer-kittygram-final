@@ -36,8 +36,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - static:/opt/app/collected_static
-      - media:/opt/app/media
+      - static:/app/collected_static
+      - media:/app/media
     networks:
       - kittygram_network
   # Имя третьего контейнера. Это контейнер с фронтендом:
