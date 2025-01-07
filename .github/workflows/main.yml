@@ -184,4 +184,5 @@ jobs:
                 sudo apt-get update
                 sudo apt-get install -y python3 python3-pip
                 pip3 install pytest
+                export PATH=$PATH:/home/ubuntu/.local/bin
                 pytest tests/
