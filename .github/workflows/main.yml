@@ -184,5 +184,5 @@ jobs:
               username: ${{ secrets.USER }}
               key: ${{ secrets.SSH_KEY }}
               script: |
-                cd /home/ubuntu/kittygram/
-                pytest tests/
+                cd /home/ubuntu/kittygram/backend/
+                python manage.py test
