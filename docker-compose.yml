@@ -29,8 +29,8 @@ services:
     container_name: backend
     # Из какого Dockerfile собирать образ для этого контейнера:
     build: 
-      context: .
-      dockerfile: ./backend/Dockerfile
+      context: ./backend/
+      dockerfile: Dockerfile
     env_file: .env
     # Какие контейнеры нужно запустить до старта этого контейнера:
     depends_on:
@@ -59,8 +59,8 @@ services:
   gateway:
     container_name: gateway
     build: 
-      context: .
-      dockerfile: ./nginx/Dockerfile
+      context: ./nginx/
+      dockerfile: Dockerfile
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
