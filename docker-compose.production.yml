@@ -37,7 +37,6 @@ services:
       - media:/app/media
     networks:
       - kittygram_network
-  # Имя третьего контейнера. Это контейнер с фронтендом:
   frontend:
     container_name: frontend
     env_file: .env
