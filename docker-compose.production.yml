@@ -43,8 +43,6 @@ services:
     volumes:
       #- static:/static
       - static:/app/build
-    ports:
-      - "8000:8000"
     networks:
       - kittygram_network
   
