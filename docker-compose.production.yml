@@ -49,6 +49,8 @@ services:
   # Контейнер с Nginx (gateway):
   gateway:
     container_name: gateway
+    depends_on:
+      - backend
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/site.conf:/etc/nginx/conf.d/default.conf
