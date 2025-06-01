@@ -88,7 +88,7 @@ jobs:
     with:
       host: ${{ needs.terraform.outputs.vm_ip }}
       user: ${{ needs.terraform.outputs.ssh_user }}
-      ssh_key: ${{ secrets.SSH_KEY }}
+      # ssh_key: ${{ secrets.SSH_KEY }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
