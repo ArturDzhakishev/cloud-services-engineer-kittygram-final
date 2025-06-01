@@ -6,6 +6,12 @@ on:
         required: true
       DOCKER_PASSWORD:
         required: true
+      HOST:
+        required: true
+      USER:
+        required: true
+      SSH_KEY:
+        required: true
 jobs:
     tests:
         runs-on: ubuntu-latest
