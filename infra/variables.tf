@@ -63,11 +63,6 @@ variable "ssh_key" {
   type = string
 }
 
-# variable "aws_region" {
-#   description = "AWS Region name"
-#   type = string
-# }
-
 variable "cloud_id" {
   description = "Cloud ID"
   type = string

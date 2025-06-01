@@ -30,7 +30,7 @@ jobs:
           cat > terraform.tfvars <<EOF
           cloud_id = "${{ secrets.CLOUD_ID }}"
           folder_id = "${{ secrets.FOLDER_ID }}"
-          ssh_key = "${{ secrets.SSH_KEY_ADMIN }}"
+          ssh_key = "${{ secrets.SSH_KEY_PUB }}"
           EOF
 
       - name: Set up Yandex Cloud service account key
@@ -68,14 +68,28 @@ jobs:
         env:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+
+      - name: Get VM IP output
+        id: output_vm_ip
+        working-directory: ./infra
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: echo "vm_ip=$(terraform output -raw vm_ip)" >> $GITHUB_OUTPUT
+
+      - name: Get SSH User output
+        id: output_ssh_user
+        working-directory: ./infra
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: echo "ssh_user=$(terraform output -raw ssh_user)" >> $GITHUB_OUTPUT
   
   deploy:
     if: ${{ github.event.inputs.action == 'apply' }}
     needs: terraform
     uses: ./.github/workflows/deploy.yml
+    with:
+      host: ${{ needs.terraform.outputs.vm_ip }}
+      user: ${{ needs.terraform.outputs.ssh_user }}
+      ssh_key: ${{ secrets.SSH_KEY }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      HOST: ${{ secrets.HOST }}
-      USER: ${{ secrets.USER }}
       SSH_KEY: ${{ secrets.SSH_KEY }}

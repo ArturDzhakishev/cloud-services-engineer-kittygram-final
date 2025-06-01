@@ -6,12 +6,20 @@ on:
         required: true
       DOCKER_PASSWORD:
         required: true
-      HOST:
-        required: true
-      USER:
-        required: true
       SSH_KEY:
         required: true
+    inputs:
+      host:
+        description: "IP адрес продакшен ВМ из Terraform"
+        required: true
+        type: string
+      user:
+        description: "Пользователь SSH для подключения из Terraform"
+        required: true
+        type: string
+      ssh_key:
+        required: true
+        type: string
 jobs:
     tests:
         runs-on: ubuntu-latest
@@ -141,16 +149,16 @@ jobs:
             uses: appleboy/scp-action@master
           # Передаём параметры для action appleboy/scp-action:
             with:
-              host: ${{ secrets.HOST }}
-              username: ${{ secrets.USER }}
-              key: ${{ secrets.SSH_KEY }}
+              host: ${{ inputs.HOST }}
+              username: ${{ inputs.USER }}
+              key: ${{ inputs.SSH_KEY }}
               source: "."
               target: "/home/ubuntu/kittygram/"
           - name: Executing remote ssh commands to deploy
             uses: appleboy/ssh-action@master
             with:
-              host: ${{ secrets.HOST }}
-              username: ${{ secrets.USER }}
+              host: ${{ inputs.HOST }}
+              username: ${{ inputs.USER }}
               key: ${{ secrets.SSH_KEY }}
               # Параметр script передаёт в action appleboy/ssh-action команды,
               # которые нужно выполнить на сервере, 
