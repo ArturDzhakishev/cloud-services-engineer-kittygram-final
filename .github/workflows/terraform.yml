@@ -30,6 +30,7 @@ jobs:
           cat > terraform.tfvars <<EOF
           cloud_id = "${{ secrets.CLOUD_ID }}"
           folder_id = "${{ secrets.FOLDER_ID }}"
+          ssh_key = "${{ secrets.SSH_KEY_ADMIN }}"
           EOF
 
       - name: Set up Yandex Cloud service account key
