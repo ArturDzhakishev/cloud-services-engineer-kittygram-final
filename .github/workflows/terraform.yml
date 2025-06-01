@@ -24,6 +24,14 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
 
+      - name: Create terraform.tfvars from secrets
+        working-directory: ./infra
+        run: |
+          cat > terraform.tfvars <<EOF
+          cloud_id = "${{ secrets.CLOUD_ID }}"
+          folder_id = "${{ secrets.FOLDER_ID }}"
+          EOF
+
       - name: Set up Yandex Cloud service account key
         working-directory: ./infra
         run: |
