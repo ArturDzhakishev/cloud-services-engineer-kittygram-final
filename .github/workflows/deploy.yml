@@ -17,9 +17,6 @@ on:
         description: "Пользователь SSH для подключения из Terraform"
         required: true
         type: string
-      ssh_key:
-        required: true
-        type: string
 jobs:
     tests:
         runs-on: ubuntu-latest
