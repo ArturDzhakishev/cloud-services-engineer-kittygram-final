@@ -1,0 +1,16 @@
+            - name: Debug secrets
+              env:
+                DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+                DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+              run: |
+                if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+                  echo "DOCKER_USERNAME: NOT SET"
+                else
+                  echo "DOCKER_USERNAME: SET"
+                fi
+
+                if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+                  echo "DOCKER_PASSWORD: NOT SET"
+                else
+                  echo "DOCKER_PASSWORD: SET"
+                fi
