@@ -81,7 +81,9 @@ jobs:
         id: output_ssh_user
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
-        run: echo "ssh_user=$(terraform output -raw ssh_user)" >> $GITHUB_OUTPUT
+        run: |
+          SSH_USER=$(terraform output -raw ssh_user | tr -d '\r\n')
+          echo "ssh_user=$SSH_USER" >> $GITHUB_OUTPUT
   
   deploy:
     if: ${{ github.event.inputs.action == 'apply' }}
