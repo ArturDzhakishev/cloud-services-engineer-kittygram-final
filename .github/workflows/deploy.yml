@@ -1,6 +1,11 @@
 name: Kittygram Workflow
 on:
   workflow_call:
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
 jobs:
     tests:
         runs-on: ubuntu-latest
@@ -81,7 +86,6 @@ jobs:
         environment: production
         steps:           
             - name: Check out the repo
-            # Получение исходного кода из репозитория
               uses: actions/checkout@v3
 
             - name: Login to Docker

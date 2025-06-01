@@ -73,3 +73,6 @@ jobs:
     if: ${{ github.event.inputs.action == 'apply' }}
     needs: terraform
     uses: ./.github/workflows/deploy.yml
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
