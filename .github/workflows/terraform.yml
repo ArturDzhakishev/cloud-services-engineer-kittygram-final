@@ -73,7 +73,9 @@ jobs:
         id: output_vm_ip
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
-        run: echo "vm_ip=$(terraform output -raw vm_ip)" >> $GITHUB_OUTPUT
+        run: |
+          unset TF_LOG
+          echo "vm_ip=$(terraform output -raw vm_ip)" >> $GITHUB_OUTPUT
 
       - name: Get SSH User output
         id: output_ssh_user
