@@ -1,2 +1,4 @@
 
 .DS_Store
+*.tfvars
+authorized_key.json
