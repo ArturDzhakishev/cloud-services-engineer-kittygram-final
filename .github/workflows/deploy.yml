@@ -148,7 +148,7 @@ jobs:
             with:
               host: ${{ inputs.HOST }}
               username: ${{ inputs.USER }}
-              key: ${{ inputs.SSH_KEY }}
+              key: ${{ secrets.SSH_KEY }}
               source: "."
               target: "/home/ubuntu/kittygram/"
           - name: Executing remote ssh commands to deploy
