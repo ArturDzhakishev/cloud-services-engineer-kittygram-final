@@ -78,7 +78,7 @@ jobs:
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
         run: |
-          IP=$terraform output -raw vm_ip
+          IP=$(terraform output -raw vm_ip)
           echo "Полученный IP: $IP"
           echo "vm_ip=$IP" >> $GITHUB_OUTPUT
 
