@@ -61,6 +61,7 @@ variable "nat" {
 variable "ssh_key" {
   description = "SSH Public Key"
   type = string
+  default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcQia1UCJYWCqsAf1NY91EmNHrb9o+GTcDZkWbxnHNE"
 }
 
 variable "cloud_id" {
