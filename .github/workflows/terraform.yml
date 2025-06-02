@@ -17,6 +17,10 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
 
+    outputs:
+      vm_ip: ${{ steps.output_vm_ip.outputs.vm_ip }}
+      ssh_user: ${{ steps.output_ssh_user.outputs.ssh_user }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
