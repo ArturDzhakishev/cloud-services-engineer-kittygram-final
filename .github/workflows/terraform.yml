@@ -27,6 +27,8 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
 
       - name: Create terraform.tfvars from secrets
         working-directory: ./infra
@@ -77,32 +79,15 @@ jobs:
         id: output_vm_ip
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
-        shell: bash
-        run: |
-          IP=$(terraform output -raw vm_ip | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | tr -d '\r')
-          printf "vm_ip=%s\n" "$IP" >> "$GITHUB_OUTPUT"
+        run: echo "vm_ip=$(terraform output -raw vm_ip)" >> $GITHUB_OUTPUT
 
       - name: Get SSH User output
         id: output_ssh_user
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
         run: |
-          # Получаем сырой вывод и сохраняем в файл для диагностики
-          terraform output -raw vm_ip > raw_ip.txt
-          
-          # Извлекаем IP строгим способом
-          IP=$(grep -oE '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$' raw_ip.txt | head -n1)
-          
-          # Проверяем валидность IP
-          if [[ -z "$IP" ]]; then
-            echo "::error::Could not extract valid IP address. Raw content:"
-            cat raw_ip.txt
-            exit 1
-          fi
-          
-          # Записываем в outputs
-          echo "vm_ip=${IP}" >> ${GITHUB_OUTPUT}
-          echo "Successfully captured IP: ${IP}"
+          SSH_USER=$(terraform output -raw ssh_user | tr -d '\r\n')
+          echo "ssh_user=$SSH_USER" >> $GITHUB_OUTPUT
   
   deploy:
     if: ${{ github.event.inputs.action == 'apply' }}
