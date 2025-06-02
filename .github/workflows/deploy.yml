@@ -156,7 +156,7 @@ jobs:
               username: user
               key: ${{ secrets.SSH_KEY }}
               source: "."
-              target: "/home/ubuntu/kittygram/"
+              target: "/home/user/kittygram/"
           - name: Executing remote ssh commands to deploy
             uses: appleboy/ssh-action@master
             with:
