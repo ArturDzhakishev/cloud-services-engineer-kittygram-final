@@ -73,12 +73,15 @@ jobs:
           ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
 
+      - name: Debug Terraform Outputs
+        run: terraform output
+
       - name: Get VM IP output
         id: output_vm_ip
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
         run: |
-          IP=$(terraform output -raw vm_ip)
+          IP=$(terraform output -raw vm_ip | tr -d '\r\n')
           echo "Полученный IP: $IP"
           echo "vm_ip=$IP" >> $GITHUB_OUTPUT
 
