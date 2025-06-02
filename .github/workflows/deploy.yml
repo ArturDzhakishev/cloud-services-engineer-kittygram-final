@@ -167,7 +167,7 @@ jobs:
               # которые нужно выполнить на сервере, 
               # с которым установлено соединение:
               script: |
-                cd /home/ubuntu/kittygram/ 
+                cd /home/user/kittygram/ 
                 sudo docker compose -f docker-compose.yml pull
                 sudo docker compose -f docker-compose.yml down
                 sudo docker compose -f docker-compose.yml up -d
