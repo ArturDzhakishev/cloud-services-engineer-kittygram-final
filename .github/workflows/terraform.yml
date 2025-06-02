@@ -79,6 +79,8 @@ jobs:
         if: ${{ github.event.inputs.action == 'apply' }}
         run: |
           IP=$(terraform output -raw vm_ip | tr -d '\r\n')
+          IP=$(echo "$IP" | sed 's/[^0-9\.]//g')
+          echo "Полученный IP: $IP"
           echo "vm_ip=$IP" >> $GITHUB_OUTPUT
 
       - name: Get SSH User output
