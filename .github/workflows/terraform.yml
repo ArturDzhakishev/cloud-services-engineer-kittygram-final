@@ -87,8 +87,14 @@ jobs:
         working-directory: ./infra
         if: ${{ github.event.inputs.action == 'apply' }}
         run: |
-          SSH_USER=$(terraform output -raw ssh_user | tr -d '\r\n')
-          echo "ssh_user=$SSH_USER" >> $GITHUB_OUTPUT
+          IP=$(terraform output -raw vm_ip | grep -oE '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$' | head -n1)
+          if [[ ! "$IP" =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            echo "::error::Invalid IP address format: '$IP'"
+            exit 1
+          fi
+          IP_CLEAN=$(echo "$IP" | tr -cd '[:digit:].')
+          echo "vm_ip=$IP_CLEAN" >> $GITHUB_OUTPUT
+          echo "IP address successfully captured: $IP_CLEAN"
   
   deploy:
     if: ${{ github.event.inputs.action == 'apply' }}
