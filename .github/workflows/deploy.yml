@@ -153,7 +153,7 @@ jobs:
           # Передаём параметры для action appleboy/scp-action:
             with:
               host: ${{ inputs.host }}
-              username: ${{ inputs.user }}
+              username: user
               key: ${{ secrets.SSH_KEY }}
               source: "."
               target: "/home/ubuntu/kittygram/"

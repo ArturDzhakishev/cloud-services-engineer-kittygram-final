@@ -31,3 +31,4 @@
 	
 	runcmd:
 	  - [ bash, /root/vm_prep.sh ]
+    - systemctl restart sshd
