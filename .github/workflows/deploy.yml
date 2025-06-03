@@ -118,7 +118,6 @@ jobs:
               uses: docker/setup-buildx-action@v2
 
             - name: Push backend to DockerHub
-              # Одновременный билд и пуш образа в Docker Hub
               uses: docker/build-push-action@v4
               with:
                 # Параметр context: ./backend/ указывает, что нужный Dockerfile 
