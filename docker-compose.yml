@@ -32,6 +32,8 @@ services:
     # Какие контейнеры нужно запустить до старта этого контейнера:
     depends_on:
       - postgres
+    command: >
+      sh -c "./wait_for_postgres.sh"
     volumes:
       - static:/app/collected_static
       - media:/app/media
