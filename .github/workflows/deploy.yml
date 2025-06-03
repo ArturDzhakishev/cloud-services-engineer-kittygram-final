@@ -161,7 +161,7 @@ jobs:
           # Передаём параметры для action appleboy/scp-action:
             with:
               host: ${{ inputs.host }}
-              username: user
+              username: ${{ inputs.user }}
               key: ${{ secrets.SSH_KEY }}
               source: "."
               target: "/home/user/kittygram/"
@@ -201,6 +201,13 @@ jobs:
         steps:
           - name: Check out code
             uses: actions/checkout@v3
+
+          - name: Generate tests.yml
+            run: |
+              echo "repo_owner: ArturDzhakishev" > tests.yml
+              echo "kittygram_domain: http://${{ inputs.host }}:80" >> tests.yml
+              echo "dockerhub_username: ${{ secrets.DOCKER_USERNAME }}" >> tests.yml
+
           - name: Set up Python
             uses: actions/setup-python@v4
             with:
