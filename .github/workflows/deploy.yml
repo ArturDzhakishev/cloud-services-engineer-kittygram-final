@@ -165,27 +165,23 @@ jobs:
               source: "."
               target: "/home/user/kittygram/"
           
-          - name: Сreate .env
-            uses: appleboy/ssh-action@master
+          - name: Upload .env
+            run: |
+              echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" > .env
+              echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+              echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+              echo "DB_HOST=postgres" >> .env
+              echo "DB_PORT=5432" >> .env
+              echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+              echo "DEBUG=False" >> .env
+          - name: Copy .env to server
+            uses: appleboy/scp-action@master
             with:
               host: ${{ inputs.host }}
               username: ${{ inputs.user }}
               key: ${{ secrets.SSH_KEY }}
-              envs: POSTGRES_DB,POSTGRES_USER,POSTGRES_PASSWORD,SECRET_KEY
-              script: |
-                cd /home/user/kittygram/
-                echo "POSTGRES_DB=$POSTGRES_DB" > .env
-                echo "POSTGRES_USER=$POSTGRES_USER" >> .env
-                echo "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" >> .env
-                echo "DB_HOST=postgres" >> .env
-                echo "DB_PORT=5432" >> .env
-                echo "SECRET_KEY=$SECRET_KEY" >> .env
-                echo "DEBUG=False" >> .env
-            env:
-              POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-              POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-              POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-              SECRET_KEY: ${{ secrets.SECRET_KEY }}
+              source: .env
+              target: /home/user/kittygram/
 
 
           - name: Executing remote ssh commands to deploy
