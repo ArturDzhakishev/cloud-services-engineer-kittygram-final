@@ -6,6 +6,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE 'kittygram_backend.settings'
 
+RUN apt-get update && apt-get install -y netcat-openbsd
+
 COPY requirements.txt .
 #COPY ./backend/requirements.txt requirements.txt
 
