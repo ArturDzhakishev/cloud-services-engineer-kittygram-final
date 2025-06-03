@@ -14,8 +14,10 @@ RUN  pip install --upgrade pip \
 
 COPY . .
 #COPY ./backend/ .
+RUN chmod +x /app/wait_for_postgres.sh
 
 RUN python manage.py collectstatic --noinput
 
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-#ENTRYPOINT ["python", "./backend/manage.py", "runserver", "0.0.0.0:8000"]
+
+ENTRYPOINT ["sh", "-c", "./wait_for_postgres.sh && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+# ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
